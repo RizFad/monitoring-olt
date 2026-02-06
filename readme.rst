@@ -71,7 +71,7 @@ Production Access
 
 Jika aplikasi sudah di-deploy pada server production, sistem dapat diakses melalui:
 
-https://domain-production-anda.com
+https://monitoring.poltekad-elektro.my.id/monitoring-olt/auth
 
 
 Pastikan:
