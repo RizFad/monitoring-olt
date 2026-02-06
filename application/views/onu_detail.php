@@ -42,10 +42,11 @@
 
 <div class="detail-card network-diagram">
 
-    <img id="onuImage"
-     src="<?= base_url('assets/onu.png') ?>"
-     style="max-width:100%;height:220px;cursor:pointer">
-
+    <div id="onuClick" style="display:inline-block;cursor:pointer">
+        <img id="onuImage"
+             src="<?= base_url('assets/onu.png') ?>"
+             style="max-width:100%;height:220px">
+    </div>
 
     <div class="mt-3">
         <span id="status" class="badge bg-success">Online</span>
@@ -53,6 +54,7 @@
     </div>
 
 </div>
+
 
 <div class="detail-card">
 <h6>Network</h6>
@@ -130,24 +132,30 @@ Password : ********
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-
 $(document).ready(function(){
 
     let id = <?= $id ?>;
 
     function setImages(status)
     {
-        if(status=='online'){
+        if(status=='TR-069'){
             $("#onuImage").attr("src","<?= base_url('assets/onu.png') ?>");
             $("#gponImage").attr("src","<?= base_url('assets/gpon.png') ?>");
-            $("#status").removeClass('bg-danger').addClass('bg-success').text('Online');
+
+            $("#status")
+                .removeClass('bg-danger')
+                .addClass('bg-success')
+                .text('Online');
+
         }else{
             $("#onuImage").attr("src","<?= base_url('assets/offline.png') ?>");
             $("#gponImage").attr("src","<?= base_url('assets/gponoff.png') ?>");
-            $("#status").removeClass('bg-success').addClass('bg-danger').text('Offline');
+
+            $("#status")
+                .removeClass('bg-success')
+                .addClass('bg-danger')
+                .text('Offline');
         }
     }
 
@@ -156,16 +164,13 @@ $(document).ready(function(){
 
         let d = JSON.parse(res);
 
-        $("#status").text(d.status);
         $("#uptime").text("Last Up : "+d.last_up_time);
-
         $("#rx").text(d.rx+" dBm");
         $("#tx").text(d.tx+" dBm");
 
         $("#ip").text(d.ip_address ?? '-');
         $("#gateway").text(d.gateway ?? '-');
         $("#dns").text(d.dns ?? '-');
-
         $("#ssid").text(d.wifi_name ?? '-');
 
         $("#olt").text(d.olt_name);
@@ -174,21 +179,20 @@ $(document).ready(function(){
         $("#mac").text(d.mac);
         $("#vendor").text(d.vendor_model);
 
-        /* penting */
         setImages(d.status);
 
     });
 
-    /* CLICK IMAGE TO TOGGLE */
-    $("#onuImage").click(function(){
+    $("#onuClick").on("click",function(){
 
         $.get("<?= base_url('api/onu/toggle_status/') ?>"+id,function(res){
+
             let r = JSON.parse(res);
             setImages(r.status);
+
         });
 
     });
-
 });
 </script>
 

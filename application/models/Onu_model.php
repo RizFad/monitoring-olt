@@ -52,6 +52,7 @@ public function getDetail($id){
     $this->db->select('
         onu.*,
         olt.description as olt_name,
+        olt.status as olt_status,
         onu_detail.wifi_name,
         onu_detail.wifi_password,
         onu_detail.ip_address,

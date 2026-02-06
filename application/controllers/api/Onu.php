@@ -22,14 +22,14 @@ class Onu extends CI_Controller {
         $data = $this->Onu_model->getLimit($limit,$offset);
         $total = $this->Onu_model->countAll();
 
-        $online = $this->Onu_model->countStatus('online');
-        $offline = $this->Onu_model->countStatus('offline');
+        $tr069 = $this->db->where('status','TR-069')->count_all_results('onu');
+        $omci  = $this->db->where('status','OMCI')->count_all_results('onu');
 
         echo json_encode([
             'data'=>$data,
             'total'=>$total,
-            'online'=>$online,
-            'offline'=>$offline,
+            'tr069'=>$tr069,
+            'omci'=>$omci,
             'pages'=>ceil($total/$limit)
         ]);
     }
@@ -132,14 +132,20 @@ public function update($id)
     }
 
     public function toggle_status($id)
-{
-    $onu = $this->Onu_model->getById($id);
+    {
+        $onu = $this->Onu_model->getById($id);
+        $olt = $this->db->get_where('olt',['id'=>$onu->olt_id])->row();
+        $new_onu = ($onu->status == 'TR-069') ? 'OMCI' : 'TR-069';
+        $new_olt = ($new_onu == 'TR-069') ? 'online' : 'offline';
+        $this->db->where('id',$id);
+        $this->db->update('onu',['status'=>$new_onu]);
+        $this->db->where('id',$onu->olt_id);
+        $this->db->update('olt',['status'=>$new_olt]);
 
-    $new = ($onu->status == 'online') ? 'offline' : 'online';
-
-    $this->Onu_model->update($id,['status'=>$new]);
-
-    echo json_encode(['status'=>$new]);
-}
+        echo json_encode([
+            'status'=>$new_onu,
+            'olt_status'=>$new_olt
+        ]);
+    }
 
 }

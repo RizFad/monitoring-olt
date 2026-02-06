@@ -69,7 +69,7 @@ CREATE TABLE `olt` (
 
 LOCK TABLES `olt` WRITE;
 /*!40000 ALTER TABLE `olt` DISABLE KEYS */;
-INSERT INTO `olt` VALUES (2,'PUSC-OLT-HUAWEI-E02','Group/PUSC','HW-OLT9000','192.99.99.3','V5.1.2','online','2026-02-06 18:50:21','2026-02-06 11:50:21','2026-02-06 11:50:21'),(3,'DESPACITO-100-203',NULL,'LAN','0.0.0.0',NULL,'offline',NULL,'2026-02-06 12:28:15','2026-02-06 12:28:15'),(5,'PUSKOM','BATALYON','BYONCOMBAT','172.0.0.1','V.32.22','offline','2026-02-06 12:12:00','2026-02-06 12:55:13','2026-02-06 13:01:10'),(6,'deskripsi','asd','123','1231212.12312','asdm','offline','2312-12-31 03:11:00','2026-02-06 15:10:25','2026-02-06 15:10:25'),(7,'asd','asd','asd','zc','zxc','online','1241-12-04 02:21:00','2026-02-06 15:10:33','2026-02-06 15:10:33'),(8,'12123','asdas','asd','1312','asdas','online','2313-12-31 11:01:00','2026-02-06 15:10:45','2026-02-06 15:10:45');
+INSERT INTO `olt` VALUES (2,'PUSC-OLT-HUAWEI-E02','Group/PUSC','HW-OLT9000','192.99.99.3','V5.1.2','online','2026-02-06 18:50:21','2026-02-06 11:50:21','2026-02-06 11:50:21'),(3,'DESPACITO-100-203',NULL,'LAN','0.0.0.0',NULL,'offline',NULL,'2026-02-06 12:28:15','2026-02-06 12:28:15'),(5,'PUSKOM','BATALYON','BYONCOMBAT','172.0.0.1','V.32.22','online','2026-02-06 12:12:00','2026-02-06 12:55:13','2026-02-06 18:42:10'),(6,'deskripsi','asd','123','1231212.12312','asdm','offline','2312-12-31 03:11:00','2026-02-06 15:10:25','2026-02-06 15:10:25'),(7,'asd','asd','asd','zc','zxc','online','1241-12-04 02:21:00','2026-02-06 15:10:33','2026-02-06 15:10:33'),(8,'12123','asdas','asd','1312','asdas','online','2313-12-31 11:01:00','2026-02-06 15:10:45','2026-02-06 15:10:45');
 /*!40000 ALTER TABLE `olt` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +89,7 @@ CREATE TABLE `onu` (
   `ip` varchar(50) DEFAULT NULL,
   `vendor_model` varchar(50) DEFAULT NULL,
   `firmware` varchar(50) DEFAULT NULL,
-  `status` enum('online','offline') DEFAULT 'offline',
+  `status` varchar(20) NOT NULL,
   `reason` varchar(100) DEFAULT NULL,
   `rx` varchar(20) DEFAULT NULL,
   `tx` varchar(20) DEFAULT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE `onu` (
 
 LOCK TABLES `onu` WRITE;
 /*!40000 ALTER TABLE `onu` DISABLE KEYS */;
-INSERT INTO `onu` VALUES (3,2,'BUDI SETIAWAN','FH123458','D0:5F:AF:52:E2:E9',NULL,'HG8245H',NULL,'offline',NULL,'-20.10','0.90','2026-02-06 18:50:21','OFF','2026-02-06 11:50:21','2026-02-06 11:50:21'),(4,3,'KAMIL SUBAKTI',NULL,NULL,NULL,NULL,NULL,'offline',NULL,NULL,NULL,NULL,'ON','2026-02-06 12:35:57','2026-02-06 12:35:57'),(5,5,'HARJANTO','CDT','D0A:12:21:AA:211A','172.0.0.1','CDTC','V.32.22','online','reass','-12,23 dBm','14,22 dBm','2222-12-12 12:12:00','ON','2026-02-06 13:41:19','2026-02-06 13:41:19'),(6,8,'asd','asd','sad','1312','asd','asdas','online','','zxc','qwe','1321-12-31 03:02:00','ON','2026-02-06 15:33:58','2026-02-06 17:57:30'),(7,3,'eee','q','ww','0.0.0.0','www','asd','online','xx','rrrr','ttttt','2222-02-22 22:22:00','ON','2026-02-06 15:34:22','2026-02-06 15:34:22'),(8,8,'12','qsad','zxc','4431221','www212','ggdffd','online','hjfghfg','cxv','tttttxcvcx','0003-12-21 23:02:00','ON','2026-02-06 15:34:42','2026-02-06 15:34:42');
+INSERT INTO `onu` VALUES (3,2,'BUDI SETIAWAN','FH123458','D0:5F:AF:52:E2:E9','','HG8245H','','TR-069','','-20.10','0.90','2026-02-06 18:50:21','OFF','2026-02-06 11:50:21','2026-02-06 18:24:48'),(4,3,'KAMIL SUBAKTI','','','','','','offline','','','','0000-00-00 00:00:00','ON','2026-02-06 12:35:57','2026-02-06 18:27:43'),(5,5,'HARJANTO','CDT','D0A:12:21:AA:211A','172.0.0.1','CDTC','V.32.22','TR-069','asdsad','-12,23 dBm','14,22 dBm','2222-12-12 12:12:00','ON','2026-02-06 13:41:19','2026-02-06 18:42:10'),(6,8,'asd','asd','sad','1312','asd','asdas','OMCI','','zxc','qwe','1321-12-31 03:02:00','ON','2026-02-06 15:33:58','2026-02-06 18:25:17'),(7,3,'eee','q','ww','0.0.0.0','www','asd','OMCI','','rrrr','ttttt','2222-02-22 22:22:00','ON','2026-02-06 15:34:22','2026-02-06 18:25:23'),(8,8,'12','qsad','zxc','4431221','www212','ggdffd','online','hjfghfg','cxv','tttttxcvcx','0003-12-21 23:02:00','ON','2026-02-06 15:34:42','2026-02-06 15:34:42');
 /*!40000 ALTER TABLE `onu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,7 +136,7 @@ CREATE TABLE `onu_detail` (
   PRIMARY KEY (`id`),
   KEY `fk_detail_onu` (`onu_id`),
   CONSTRAINT `fk_detail_onu` FOREIGN KEY (`onu_id`) REFERENCES `onu` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,7 +145,7 @@ CREATE TABLE `onu_detail` (
 
 LOCK TABLES `onu_detail` WRITE;
 /*!40000 ALTER TABLE `onu_detail` DISABLE KEYS */;
-INSERT INTO `onu_detail` VALUES (3,3,'WiFi-Budi','12345678','10.1.1.4','10.1.1.1','8.8.8.8',5,10,1,1,'2026-02-06 11:50:21'),(4,6,'asd','zxc','1312','ffff','ccc',333,0,0,333,'2026-02-06 17:36:26');
+INSERT INTO `onu_detail` VALUES (3,3,'','','','','',0,0,0,0,'2026-02-06 11:50:21'),(4,6,'asd','xzczx','1312','zxc','xzc',0,0,0,0,'2026-02-06 17:36:26'),(5,5,'','','172.0.0.1','','',0,0,0,0,'2026-02-06 18:20:24'),(6,4,'','','','','',0,0,0,0,'2026-02-06 18:24:59'),(7,7,'asd','xzczx','0.0.0.0','zxc','xzc',0,0,0,0,'2026-02-06 18:25:23');
 /*!40000 ALTER TABLE `onu_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-02-07  1:05:45
+-- Dump completed on 2026-02-07  1:42:59

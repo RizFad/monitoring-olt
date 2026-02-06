@@ -100,10 +100,10 @@ $initial  = strtoupper(substr($username,0,1));
         <h4 class="mb-1">ONU List</h4>
         <small>
             <span class="status-dot dot-online"></span>
-            <span id="onlineCount">0</span>
+            <span id="trCount">0</span> TR-069
 
-            <span class="ms-3 status-dot dot-offline"></span>
-            <span id="offlineCount">0</span>
+            <span class="ms-3 status-dot dot-online"></span>
+            <span id="omciCount">0</span> OMCI
         </small>
     </div>
 
@@ -203,8 +203,8 @@ $initial  = strtoupper(substr($username,0,1));
 <div class="col-md-4">
 <label>Status</label>
 <select id="status" class="form-control mb-2">
-<option value="online">Online</option>
-<option value="offline">Offline</option>
+    <option value="TR-069">TR-069</option>
+    <option value="OMCI">OMCI</option>
 </select>
 </div>
 
@@ -332,8 +332,8 @@ function loadData(){
         let data = r.data;
 
         $("#totalData").text(r.total);
-        $("#onlineCount").text(r.online);
-        $("#offlineCount").text(r.offline);
+        $("#trCount").text(r.tr069);
+        $("#omciCount").text(r.omci);
 
         let html='';
 
@@ -346,10 +346,14 @@ function loadData(){
                 <td>${d.olt_name ?? ''}</td>
                 <td>${d.vendor_model ?? ''}<br>${d.firmware ?? ''}</td>
                 <td>
-                    <span class="badge rounded-pill ${d.status=='online'?'bg-success':'bg-danger'}">
-                        ${d.status}
-                    </span>
+                    <div>
+                        <span class="status-dot ${d.status=='TR-069'?'dot-online':''}"></span> TR-069
+                    </div>
+                    <div>
+                        <span class="status-dot ${d.status=='OMCI'?'dot-online':''}"></span> OMCI
+                    </div>
                 </td>
+
                 <td>${d.reason ?? ''}</td>
                 <td>${d.rx ?? ''} / ${d.tx ?? ''}</td>
                 <td>${d.last_up_time ?? ''}</td>
